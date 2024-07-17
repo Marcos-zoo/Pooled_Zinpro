@@ -43,7 +43,7 @@ def age():
 
         # Fixed title
         st.markdown(
-            '<div class="fixed-title"><h1 class="header">Zinc and Chrome Study</h1><h2 class="subheader">Mixed effects in Zinc and Chrome study</h2></div>',
+            '<div class="fixed-title"><h1 class="header">Zinc and Chrome Study</h1><h2 class="subheader">Mixed effects</h2></div>',
             unsafe_allow_html=True)
 
         # Main content with scrollbar
