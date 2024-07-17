@@ -5,8 +5,6 @@ Created on Fri Jun 21 11:59:31 2024
 """
 
 import streamlit as st
-import pandas as pd
-import plotly.express as px
 from streamlit_option_menu import option_menu
 import age_europa_pooled
 import age_europa_pooled_cumulative
