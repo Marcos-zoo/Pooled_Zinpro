@@ -77,7 +77,7 @@ def zinc_chrome_cumulative():
         )
 
         # Use the custom CSS class to center the subheader
-        st.markdown('<h2 class="center-text">Performance</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 class="center-text">Cumulative performance</h2>', unsafe_allow_html=True)
 
         # Map treatment codes to names
         df3['TR'] = df3['TR'].map({1: 'IM', 2: 'Availa-iso'})
