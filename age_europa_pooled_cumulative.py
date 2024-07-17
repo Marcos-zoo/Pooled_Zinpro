@@ -73,7 +73,7 @@ def zinc_chrome_cumulative():
             }
             .closer-text {
                 text-align: center;
-                margin-top: 10px; /* Adjust this value to reduce the space */
+                margin-top: 3px; /* Adjust this value to reduce the space */
             }
             </style>
             """,
