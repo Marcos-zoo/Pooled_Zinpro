@@ -71,11 +71,15 @@ def zinc_chrome_cumulative():
                 text-align: center;
                 margin-top: 30px; /* Adjust this value as needed */
             }
+            .closer-text {
+                text-align: center;
+                margin-top: 10px; /* Adjust this value to reduce the space */
+            }
             </style>
             """,
             unsafe_allow_html=True
         )
-
+       
         # Use the custom CSS class to center the subheader
         st.markdown('<h2 class="center-text">Cumulative performance </h2>', unsafe_allow_html=True)
         st.markdown('<h2 class="center-text">1 to 42 days</h2>', unsafe_allow_html=True)
