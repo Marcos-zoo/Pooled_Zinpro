@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
-from streamlit_option_menu import option_menu
 import plotly.express as px
-
 
 def age():
     with st.container():
@@ -53,12 +51,10 @@ def age():
     @st.cache_data
     def load_data():
         # Load the data from an Excel file
-        df = pd.read_excel("Europe_analysis_pool_2.xlsx", sheet_name='AGE', na_values='')
+        df = pd.read_excel("Europe_analysis_pool_2.xlsx", sheet_name='AGE', na_values='NaN')
         df2 = pd.read_excel("Europe_analysis_pool_2.xlsx", sheet_name='P-VALUES')
 
-
         return df, df2
-
 
     # Load the data
     df, df2 = load_data()
@@ -66,6 +62,30 @@ def age():
     # Define the color map
     color_map = {'IM': '#000000', 'Availa-iso': '#000061'}
 
+    # Sidebar for selecting age
+    st.sidebar.header('Select period')
+
+    # Define the age options and corresponding number ranges
+    age_options = {
+        '1 to 7': range(1, 8),
+        '14 to 21': range(14, 22),
+        '22 to 42': range(22, 43)
+    }
+
+    # Create a selectbox with the textual ranges
+    selected_range = st.sidebar.selectbox('Select Age', list(age_options.keys()))
+    number_range = age_options[selected_range]
+
+    # Display the selected range
+    st.write(f"Selected Age Range: {selected_range}")
+
+    def phases():
+        if selected_range == '1 to 7':
+            st.markdown('<h2 class="left-text">1 to 7 days</h2>', unsafe_allow_html=True)
+        elif selected_range == '14 to 21':
+            st.markdown('<h2 class="left-text">14 to 21 days</h2>', unsafe_allow_html=True)
+        elif selected_range == '22 to 42':
+            st.markdown('<h2 class="left-text">22 to 42 days</h2>', unsafe_allow_html=True)
 
     def graphs_performance():
         st.markdown(
@@ -81,14 +101,11 @@ def age():
         )
 
         # Use the custom CSS class to center the subheader
-        st.markdown('<h2 class="center-text">Performance by Age</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 class="center-text">Performance by phase</h2>', unsafe_allow_html=True)
+        phases()
 
-        # Sidebar for selecting age
-        st.sidebar.header('Select Age')
-        age = st.sidebar.selectbox('Select Age', df['Age'].unique())
-
-        # Filter the dataframe based on selected age
-        age_filtered = df[df['Age'] == age]
+        # Filter the dataframe based on the number range
+        age_filtered = df[df['Age'].isin(number_range)]
 
         # Map treatment codes to names
         age_filtered['TR'] = age_filtered['TR'].map({1: 'IM', 2: 'Availa-iso'})
@@ -114,7 +131,7 @@ def age():
             if col_name in df2.columns:
                 # Plot using Plotly
                 y = col_name
-                age_p = df2[df2['Age'] == age].loc[:, y].round(3)
+                age_p = df2[df2['Age'].isin(number_range)].loc[:, y].round(3)
                 error_y = age_filtered.groupby('TR')[y].std()
 
                 fig = px.bar(aggregated_data_no_age, x='TR', y=y, title=col_name,
@@ -148,7 +165,6 @@ def age():
                     align="right"
                 )
 
-
                 # Alternate between columns for each chart
                 if current_column == col1:
                     col1.plotly_chart(fig)
@@ -157,12 +173,6 @@ def age():
                     col2.plotly_chart(fig)
                     current_column = col1
 
-
-
-
     graphs_performance()
 
-
-
-   
-
+age()

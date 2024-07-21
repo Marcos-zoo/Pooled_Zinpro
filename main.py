@@ -61,13 +61,13 @@ def main():
     with st.sidebar:
         selected = option_menu(
             menu_title='Main Menu',
-            options=['Age', 'Cumulative'],
+            options=['Phase', 'Cumulative'],
             icons=['egg-fried', 'chicken'],
             menu_icon='cast',
             default_index=0
         )
     
-    if selected == 'Age':
+    if selected == 'Phase':
         age_europa_pooled.age()
     elif selected == 'Cumulative':
          age_europa_pooled_cumulative.zinc_chrome_cumulative()
